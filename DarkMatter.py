@@ -306,18 +306,18 @@ class Schrodinger(object):
         self.L = len(self.y)
         self.N = self.J * self.L
 
+        try:
+            self.nDm = int(sys.argv[1])
+            self.c = int(sys.argv[2])
+            self.sigma = int(sys.argv[3])
+            self.sigmax = self.sigma
+            self.sigmay = self.sigma
 
-        self.nDm = sys.argv[1]
-        self.c = sys.argv[2]
-        self.sigma = sys.argv[3]
-        self.sigmax = self.sigma
-        self.sigmay = self.sigma
-
-        print("N:", self.nDm)
-        print("c:", self.c)
-        print("sigma:", self.sigma)
-        
-
+            print("N:", self.nDm)
+            print("c:", self.c)
+            print("sigma:", self.sigma)
+        except:
+            print("Input not an integer")
 
     def set_coordinate(self, args):
         self.nx = args['nx']
