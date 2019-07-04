@@ -162,10 +162,10 @@ class Schrodinger(object):
     def solve(self):
         U1, U2 = self.sparse_matrix()
         LU = scipy.sparse.linalg.splu(U1)
-        PSI = np.zeros((self.N, 2000), dtype=complex)
+        PSI = np.zeros((self.N, 2500), dtype=complex)
         PSI[:, 0] = self.psi0.reshape(self.N)
         
-        MAX_STEP = 2000
+        MAX_STEP = 2500
         step_index = 0
         count = 1
         delta = 60
@@ -307,14 +307,15 @@ class Schrodinger(object):
         self.N = self.J * self.L
 
 
-        self.c = 5
-        self.nDm = 100
-        self.sigma = 1.0
+        self.nDm = sys.argv[1]
+        self.c = sys.argv[2]
+        self.sigma = sys.argv[3]
         self.sigmax = self.sigma
         self.sigmay = self.sigma
 
-        #print("c:", self.c)
-        #print("sigma:", self.sigma)
+        print("N:", self.nDm)
+        print("c:", self.c)
+        print("sigma:", self.sigma)
         
 
 
