@@ -162,10 +162,10 @@ class Schrodinger(object):
     def solve(self):
         U1, U2 = self.sparse_matrix()
         LU = scipy.sparse.linalg.splu(U1)
-        PSI = np.zeros((self.N, 2500), dtype=complex)
+        PSI = np.zeros((self.N, 2000), dtype=complex)
         PSI[:, 0] = self.psi0.reshape(self.N)
         
-        MAX_STEP = 2500
+        MAX_STEP = 2000
         step_index = 0
         count = 1
         delta = 60
@@ -176,7 +176,7 @@ class Schrodinger(object):
             # if it reaches MAX steps
             if step_index == MAX_STEP - 1:
                 print("Reached max step")
-                sys.exit(1)
+                break
 
             b = U2.dot(PSI[:, step_index])
             PSI[:, step_index + 1] = LU.solve(b)
@@ -212,12 +212,19 @@ class Schrodinger(object):
 
         '''
 
-        print("step:", count)
-        print("avg r:", self.delta_r[-1])
+        filename = str(self.nDm) + "particles.txt"
 
-        if step_index != MAX_STEP - 1:
-            plt.plot(np.array(range(count)), self.delta_r)
-            plt.show()
+        with open(filename, "a") as txtfile:
+            if step_index != MAX_STEP - 1:
+                txtfile.write("C-" + str(self.c) + ", Init Spread-" + str(self.sigma) + ": " + str(self.delta_r[-1]) \
+                    + " with " + str(count) + " steps\n")
+
+                image_format = ".png"
+                plt.plot(np.array(range(count)), self.delta_r)
+                plt.title("r")
+                plt.savefig("r" + str(self.nDm) + "-" + str(self.c) + "-" + str(self.sigmax) + image_format, format='png')
+            else:
+                txtfile.write("C - " + str(self.c) + ", Init Spread - " + str(self.sigma) + ": MAX")
 
         return PSI
 
@@ -306,8 +313,6 @@ class Schrodinger(object):
         self.L = len(self.y)
         self.N = self.J * self.L
 
-        print(sys.argv)
-
         try:
             self.nDm = int(sys.argv[1])
             self.c = int(sys.argv[2])
@@ -315,9 +320,6 @@ class Schrodinger(object):
             self.sigmax = self.sigma
             self.sigmay = self.sigma
 
-            print("N:", self.nDm)
-            print("c:", self.c)
-            print("sigma:", self.sigma)
         except:
             print("Input not an integer")
             sys.exit(1)
