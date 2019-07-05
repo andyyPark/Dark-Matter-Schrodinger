@@ -216,7 +216,8 @@ class Schrodinger(object):
 
         with open(filename, "a") as txtfile:
             if step_index != MAX_STEP - 1:
-                txtfile.write("C-" + str(self.c) + ", Init Spread-" + str(self.sigma) + ": " + str(self.delta_r[-1]) \
+                txtfile.write("C-" + str(self.c) + ", Init Spread-" + str(self.sigma) + ": "\
+                    + str(round(self.delta_r[-1], 4)) \
                     + " with " + str(count) + " steps\n")
 
                 image_format = ".png"
@@ -224,7 +225,7 @@ class Schrodinger(object):
                 plt.title("r")
                 plt.savefig("r" + str(self.nDm) + "-" + str(self.c) + "-" + str(self.sigmax) + image_format, format='png')
             else:
-                txtfile.write("C - " + str(self.c) + ", Init Spread - " + str(self.sigma) + ": MAX")
+                txtfile.write("C-" + str(self.c) + ", Init Spread-" + str(self.sigma) + ": MAX\n")
 
         return PSI
 
