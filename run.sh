@@ -1,6 +1,5 @@
 #!/bin/bash
 
-C=(5 10 15 20 25 30 40)
 NUMBER='^[0-9]+$'
 DECIAML='^[0-9]+(\.[0-9]+)?$'
 
@@ -10,18 +9,23 @@ if ! [[ $1 =~ $NUMBER ]]; then
 	exit 1
 fi
 
-# Check if spread is given
+# Check if c is given
 if ! [[ $2 =~ $DECIAML ]]; then
+	echo "C not given"
+	exit 1
+fi
+
+# Check if spread is given
+if ! [[ $3 =~ $DECIAML ]]; then
 	echo "Initial spread not given"
 	exit 1
 fi
 
 # Run python script
-for c in ${C[*]}
-do
-	echo "Running $c and $2"
-	python3 DarkMatter.py $1 $c $2
-done
+
+echo "Running $2 and $3"
+python3 DarkMatter.py $1 $2 $3
+
 
 # Move all the iamges
 if [[ -d "./images" ]]; then

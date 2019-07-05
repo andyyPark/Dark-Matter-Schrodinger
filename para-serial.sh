@@ -4,4 +4,4 @@
 #$ -pe openmp 8-64
 #$ -m beas
 
-./run.sh $1 $2 > log{$1}.txt
+./run.sh $1 $2 $3> log$1.txt
