@@ -316,13 +316,13 @@ class Schrodinger(object):
 
         try:
             self.nDm = int(sys.argv[1])
-            self.c = int(sys.argv[2])
-            self.sigma = int(sys.argv[3])
+            self.c = float(sys.argv[2])
+            self.sigma = float(sys.argv[3])
             self.sigmax = self.sigma
             self.sigmay = self.sigma
 
         except:
-            print("Input not an integer")
+            print("Input not a number")
             sys.exit(1)
 
     def set_coordinate(self, args):
@@ -337,9 +337,6 @@ class Schrodinger(object):
         self.t = np.linspace(self.t0, self.Nt * self.dt, self.Nt)
         self.T = len(self.t)
         self.debug = False
-
-        #print(self.T)
-
 
 if __name__ == '__main__':
     args = {
