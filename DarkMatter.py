@@ -190,11 +190,11 @@ class Schrodinger(object):
                 break
 
             # if the average of last 5 is within 0.1 of the average of the first 5
-            if count >= 20 and count % delta == 0:
+            if count >= delta:
                 tol = np.abs((np.average(self.delta_r[count - delta : count - int(delta/2)]) \
                      - np.average(self.delta_r[count - int(delta / 2) : count])) \
                           / np.average(self.delta_r[count - delta : count - int(delta / 2)])) 
-                if tol <= 0.001:
+                if tol <= 0.01:
                     print("Avg no change")
                     break
 
