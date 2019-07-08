@@ -201,17 +201,6 @@ class Schrodinger(object):
             step_index = step_index + 1
             count = count + 1
 
-
-        '''
-        for n in range(0, self.T - 1):
-            b = U2.dot(PSI[:, n])
-            PSI[:, n + 1] = LU.solve(b)
-
-            
-            old code
-
-        '''
-
         filename = str(self.nDm) + "particles.txt"
 
         with open(filename, "a") as txtfile:
